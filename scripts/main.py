@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-# STRUCTURED REVIEW OF DATA
+# STRUCTURED REVIEW OF DATAs
 
 df = pd.read_csv("../data/openpowerlifting.csv", low_memory=False)
 print(df.head(10))
