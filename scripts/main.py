@@ -8,6 +8,7 @@ print(df.head(10))
 
 # Numbers of rows and columns
 print(f"Number of rows: {df.shape[0]}")
+raw_data_rows = df.shape[0]
 print(f"Number of columns: {df.shape[1]}")
 
 # Names of columns
@@ -30,4 +31,4 @@ print(f"Percentage of missing data {(df.isnull().sum() / len(df) * 100).sort_val
 
 # DATA CLEANING
 # Crucial data: Age, Weight, Results
-#
+# If row didn't have crucial data then it will be dropped
