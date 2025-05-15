@@ -3,7 +3,7 @@ import numpy as np
 
 # STRUCTURED REVIEW OF DATA
 
-df = pd.read_csv("openpowerlifting.csv", low_memory=False)
+df = pd.read_csv("../data/openpowerlifting.csv", low_memory=False)
 print(df.head(10))
 
 # Numbers of rows and columns
