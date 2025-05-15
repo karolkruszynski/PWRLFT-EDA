@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-# Data Structure check
+# STRUCTURED REVIEW OF DATA
 
 df = pd.read_csv("openpowerlifting.csv", low_memory=False)
 print(df.head(10))
@@ -22,7 +22,12 @@ print(f"Basic statistics: {df.describe()}")
 
 # Missing Data
 print(f"Sum of missing data {df.isnull().sum().sort_values(ascending=False)}")
-
+# % Missing Data of top 3 columns
+print(f"Percentage of missing data {(df.isnull().sum() / len(df) * 100).sort_values(ascending=False)}")
 # As we can see, most of the empty values are in the Squat4Kg / Bench4Kg / Deadlift4Kg columns because in these columns they refer to fourth approaches, which are granted in rare cases by the judges.
 # For example, while the referees made a mistake to your disadvantage, then you are entitled to an additional approach.
 
+
+# DATA CLEANING
+# Crucial data: Age, Weight, Results
+#
