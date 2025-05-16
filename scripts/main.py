@@ -63,3 +63,11 @@ print(df[numeric_columns].head(20))
 print(df[df['Squat2Kg'].isna()].head())
 # Save cleaned data
 df.to_csv("cleaned_openpowerlifting.csv", index=False, na_rep='NaN')
+
+# Load Clean Data
+df = pd.read_csv("../data/cleaned_openpowerlifting.csv", low_memory=False)
+# Make a sample for faster processing through process
+df = df.sample(n=100000, random_state=42)
+#print(len(df))
+#print(df.head(10))
+df.to_csv("sample_data.csv", index=False, na_rep='NaN')
