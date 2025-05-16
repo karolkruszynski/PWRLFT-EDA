@@ -53,5 +53,13 @@ print(f"Unique sex types: {df['Sex'].unique()}")
 df['Sex'] = df['Sex'].replace('Mx', 'M')
 print(f"Unique sex types: {df['Sex'].unique()}")
 
+# Conversion of ungraded approaches to null values
+numeric_columns = df.select_dtypes(include='number').columns
+df[numeric_columns] = df[numeric_columns].where(df[numeric_columns] >= 0, np.nan)
+print(df[numeric_columns].head(20))
+#print((df < 0).any())
+#print(df.isna().sum())
+#print(df.describe())
+print(df[df['Squat2Kg'].isna()].head())
 # Save cleaned data
-df.to_csv("cleaned_openpowerlifting.csv", index=False)
+df.to_csv("cleaned_openpowerlifting.csv", index=False, na_rep='NaN')
