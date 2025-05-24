@@ -63,3 +63,36 @@ plt.ylabel("TotalKg score")
 plt.legend(title="Sex")
 plt.tight_layout()
 plt.show()
+
+# Diff between female and male lifters in Squat attempts
+mean_squat = df_raw[['Sex', 'Squat1Kg', 'Squat2Kg', 'Squat3Kg']].groupby('Sex').mean().reset_index()
+melted = mean_squat.melt(id_vars='Sex',
+                         value_vars=['Squat1Kg', 'Squat2Kg', 'Squat3Kg'],
+                         var_name='Squat Attempts',
+                         value_name='Average Weight')
+plt.figure(figsize=(8,5))
+sns.lineplot(data=melted, x='Squat Attempts', y='Average Weight', hue='Sex', marker='o')
+plt.title('Distribution of squat1-3 results by gender')
+plt.xlabel('Attempts')
+plt.ylabel('Result [kg]')
+plt.show()
+
+# Diff between female and male lifters in Squat attempts in %
+mean_squat = df_raw.groupby('Sex')[['Squat1Kg', 'Squat2Kg', 'Squat3Kg']].mean()
+pct_diff = (mean_squat.loc['M'] - mean_squat.loc['F'])  / mean_squat.loc['F'] * 100
+plt.figure(figsize=(10,5))
+sns.heatmap(pct_diff.to_frame().T, annot=True, cmap='coolwarm', fmt='.1f', cbar_kws={'label': '% difference'})
+plt.title('Percentage difference in mean Squat1-3 scores: Men vs Women')
+plt.yticks([])
+plt.tight_layout()
+plt.show()
+
+# Std for Gender by attempt
+std_df = df.groupby('Sex')[['Squat1Kg', 'Squat2Kg', 'Squat3Kg']].std()
+std_melted = std_df.reset_index().melt(id_vars='Sex', var_name='Attempt', value_name='StdDev')
+
+plt.figure(figsize=(8,5))
+sns.barplot(data=std_melted, x='Attempt', y='StdDev', hue='Sex')
+plt.title('Standard deviation of Squat scores by gender and attempt')
+plt.ylabel('Std [kg]')
+plt.show()
