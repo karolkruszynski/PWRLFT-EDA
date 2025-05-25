@@ -46,8 +46,8 @@ def parse_weight_class(val):
 
 df_raw['WeightClassKg_clean'] = df_raw['WeightClassKg'].astype(str).apply(parse_weight_class)
 print(df_raw['WeightClassKg_clean'].unique())
-bins = [0, 59, 69, 79, 89, 99, 109, 120, 200]
-labels = ['≤59', '60–69', '70–79', '80–89', '90–99', '100–109', '110–120', '120+']
+bins = [0, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 200]
+labels = ['<45', '45-50' , '51-55', '56-60', '61-65', '66-70', '71-75', '76-80', '81-85', '86-90', '91-95', '96-100', '101-105', '106-110', '111-115', '116-120', '120+']
 
 df_raw['WeightCategory'] = pd.cut(df_raw['WeightClassKg_clean'], bins=bins, labels=labels, right=False)
 plt.figure(figsize=(14, 6))
@@ -92,3 +92,19 @@ for exercise in exercises:
     sns.heatmap(success_rate, annot=True, fmt='.1f', cmap='Greens', cbar_kws={'label': '% good attempts'})
     plt.tight_layout()
     plt.show()
+
+# Performance indicator TotalKg / Bodyweight
+df_raw['TotalKg_per_BodyweightKg'] = df_raw['TotalKg'] / df_raw['BodyweightKg']
+mean_performance_by_bodyweight = df_raw.groupby(['Sex', 'WeightCategory'])['TotalKg_per_BodyweightKg'].mean()
+plt.figure(figsize=(10, 6))
+sns.lineplot(data=mean_performance_by_bodyweight.reset_index(),
+             x='WeightCategory',
+             y='TotalKg_per_BodyweightKg',
+             hue='Sex',
+             marker='o')
+plt.title('Average Total / Body weight by gender')
+plt.xlabel('WeightCategory')
+plt.ylabel('Total / Bodyweight')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
