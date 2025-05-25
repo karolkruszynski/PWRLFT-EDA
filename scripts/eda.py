@@ -108,3 +108,15 @@ plt.ylabel('Total / Bodyweight')
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+
+# Wilks score by gender through years
+sns.lineplot(data=df_raw, hue='Sex', x='Year', y='Wilks')
+plt.show()
+
+# Corr by gender
+corr_m = df[df['Sex'] == 'M'].corr(numeric_only=True)
+corr_f = df[df['Sex'] == 'F'].corr(numeric_only=True)
+sns.heatmap(corr_m, annot=True, fmt='.1f', cmap='Greens', cbar_kws={'label': '% good attempts'})
+plt.show()
+sns.heatmap(corr_f, annot=True, fmt='.1f', cmap='Greens', cbar_kws={'label': '% good attempts'})
+plt.show()
